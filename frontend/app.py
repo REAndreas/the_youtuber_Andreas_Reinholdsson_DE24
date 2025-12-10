@@ -1,5 +1,11 @@
 import streamlit as st
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+url = f"https://youtuber-andreas-de24.azurewebsites.net/rag/query?code={os.getenv('API_KEY')}"
 
 
 def layout():
@@ -7,8 +13,8 @@ def layout():
     st.markdown("Ask about data engineering topics")
     text_input = st.text_input(label= "Ask a question")
 
-    if st.button("Send") and text_input != "":
-        response = requests.post("http://127.0.0.1:8000/rag/query", json={"prompt": text_input})
+    if st.button("Inquire") and text_input != "":
+        response = requests.post(url, json={"prompt": text_input})
 
         data = response.json()
 
