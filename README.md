@@ -149,7 +149,3 @@ uv.lock                   # Locked dependencies
 2. Create a feature branch  
 3. Use `uv sync` for consistent environments  
 4. Submit a pull request  
-
----
-
-If you want, I can also create an `.env.example`, add badges, or generate an architecture diagram.
