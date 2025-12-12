@@ -22,18 +22,23 @@ def layout():
     text_input = st.text_input(label= "Ask a question")
 
     if st.button("Inquire") and text_input != "":
-        response = requests.post(url, json={"prompt": text_input})
 
-        data = response.json()
+        try:
+            response = requests.post(url, json={"prompt": text_input})
+            response.raise_for_status()
+            data = response.json()
 
-        st.markdown("## Question")
-        st.markdown(text_input)
+            st.markdown("## Question")
+            st.markdown(text_input)
 
-        st.markdown("## Answer")
-        st.markdown(data["answer"])
+            st.markdown("## Answer")
+            st.markdown(data.get("answer", "No answer"))
 
-        st.markdown("## Source")
-        st.markdown(data["filepath"])
+            st.markdown("## Source")
+            st.markdown(data.get("Filepath", "No filepath available"))
+        
+        except requests.exceptions.RequestException as e:
+            st.error(f"API call failed: {e}")
 
 
 if __name__ == "__main__":
